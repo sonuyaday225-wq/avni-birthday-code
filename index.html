@@ -29,8 +29,8 @@
             opacity: 0.3;
         }
 
-        /* Main Content */
-        .content {
+        /* Slide Container */
+        .slide-container {
             position: relative;
             z-index: 1;
             min-height: 100vh;
@@ -41,15 +41,23 @@
             padding: 20px;
         }
 
+        .slide {
+            display: none;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .slide.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
         .terminal {
             background: rgba(0, 20, 0, 0.9);
             border: 2px solid #00ff00;
             border-radius: 10px;
             padding: 30px;
-            max-width: 800px;
-            width: 100%;
             box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
-            margin-bottom: 30px;
         }
 
         .terminal-header {
@@ -104,6 +112,10 @@
             color: #ffff00;
         }
 
+        .number {
+            color: #ff00ff;
+        }
+
         .button {
             background: transparent;
             border: 2px solid #00ff00;
@@ -115,7 +127,6 @@
             margin: 20px auto;
             display: block;
             transition: all 0.3s;
-            position: relative;
         }
 
         .button:hover {
@@ -125,34 +136,11 @@
             transform: scale(1.05);
         }
 
-        .progress-bar {
-            width: 100%;
-            height: 30px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid #00ff00;
-            border-radius: 15px;
-            margin: 20px 0;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #00ff00, #00ffff);
-            width: 0%;
-            transition: width 0.5s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #000;
-            font-weight: bold;
-        }
-
-        .counter {
+        .progress-indicator {
             text-align: center;
-            font-size: 1.5em;
-            margin: 10px 0;
+            margin-top: 20px;
             color: #00ffff;
+            font-size: 0.9em;
         }
 
         /* Pop-up Slide Modal */
@@ -264,6 +252,28 @@
             animation: confetti-fall 3s linear;
         }
 
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #00ff00;
+            border-radius: 15px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff00, #00ffff);
+            width: 0%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: bold;
+        }
+
         @keyframes glow {
             0%, 100% { text-shadow: 0 0 10px #00ff00; }
             50% { text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00; }
@@ -292,34 +302,6 @@
             }
         }
 
-        .final-message {
-            display: none;
-            text-align: center;
-            padding: 40px;
-            background: rgba(0, 20, 0, 0.9);
-            border: 2px solid #00ff00;
-            border-radius: 10px;
-            margin: 20px auto;
-            max-width: 800px;
-        }
-
-        .final-message.active {
-            display: block;
-            animation: slideIn 0.5s ease;
-        }
-
-        .final-message h2 {
-            font-size: 2.5em;
-            color: #00ffff;
-            margin-bottom: 20px;
-        }
-
-        .final-message p {
-            font-size: 1.2em;
-            line-height: 1.8;
-            margin: 15px 0;
-        }
-
         @media (max-width: 768px) {
             h1 {
                 font-size: 1.8em;
@@ -343,52 +325,229 @@
     <!-- Matrix Rain Background -->
     <canvas id="matrix-canvas"></canvas>
 
-    <!-- Main Content -->
-    <div class="content">
-        <div class="terminal">
-            <div class="terminal-header">
-                <div class="terminal-button red"></div>
-                <div class="terminal-button yellow"></div>
-                <div class="terminal-button green"></div>
-                <span class="terminal-title">birthday_wish.js - Avni's Special Day</span>
+    <!-- Slide Container -->
+    <div class="slide-container">
+        <!-- Slide 1 -->
+        <div class="slide active" id="slide1">
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-button red"></div>
+                    <div class="terminal-button yellow"></div>
+                    <div class="terminal-button green"></div>
+                    <span class="terminal-title">birthday_wish.js - Avni's Special Day</span>
+                </div>
+
+                <h1>Happy Birthday<br>Avni</h1>
+
+                <div class="code-block">
+                    <span class="comment">// Initializing birthday celebration...</span><br>
+                    <span class="keyword">const</span> today = <span class="keyword">new</span> Date();<br>
+                    <span class="keyword">const</span> specialPerson = <span class="string">"Avni"</span>;<br>
+                    <span class="keyword">const</span> celebration = <span class="keyword">true</span>;<br><br>
+                    
+                    <span class="keyword">if</span> (celebration) {<br>
+                    &nbsp;&nbsp;console.log(<span class="string">"🎉 Let's celebrate the amazing Avni! 🎂"</span>);<br>
+                    }
+                </div>
+
+                <button class="button" onclick="nextSlide()">Execute Program →</button>
+                <div class="progress-indicator">1 / 7</div>
             </div>
-
-            <h1>Happy Birthday<br>Avni</h1>
-
-            <div class="code-block">
-                <span class="comment">// Initializing birthday celebration...</span><br>
-                <span class="keyword">const</span> today = <span class="keyword">new</span> Date();<br>
-                <span class="keyword">const</span> specialPerson = <span class="string">"Avni"</span>;<br>
-                <span class="keyword">const</span> celebration = <span class="keyword">true</span>;<br><br>
-                
-                <span class="keyword">if</span> (celebration) {<br>
-                &nbsp;&nbsp;console.log(<span class="string">"🎉 Let's celebrate the amazing Avni! 🎂"</span>);<br>
-                }
-            </div>
-
-            <div class="counter" id="counter">Click 0 of 17</div>
-            
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill">0%</div>
-            </div>
-
-            <button class="button" id="startButton" onclick="nextSlide()">
-                Start the Journey →
-            </button>
         </div>
 
-        <div class="final-message" id="finalMessage">
-            <h2>🎉 Journey Complete! 🎉</h2>
-            <p>You've experienced all 17 special moments!</p>
-            <p>Happy Birthday, Avni! 🎂</p>
-            <p>May your day be filled with as much joy as you bring to others! ✨</p>
-            <p style="color: #00ffff; font-size: 1.5em; margin-top: 30px;">
-                Wishing you endless happiness, success, and amazing adventures ahead! 🌟
-            </p>
+        <!-- Slide 2 -->
+        <div class="slide" id="slide2">
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-button red"></div>
+                    <div class="terminal-button yellow"></div>
+                    <div class="terminal-button green"></div>
+                    <span class="terminal-title">birthday_wish.js - Avni's Special Day</span>
+                </div>
+
+                <div class="code-block">
+                    <span class="comment">// Loading birthday modules...</span><br><br>
+                    <span class="keyword">import</span> { love, happiness, joy } <span class="keyword">from</span> <span class="string">'./emotions'</span>;<br>
+                    <span class="keyword">import</span> { memories, moments } <span class="keyword">from</span> <span class="string">'./timeline'</span>;<br>
+                    <span class="keyword">import</span> { wishes, dreams } <span class="keyword">from</span> <span class="string">'./future'</span>;<br><br>
+                    
+                    <span class="comment">// Compiling heartfelt message...</span><br><br>
+                    <span class="string">Loading ...</span>
+                </div>
+
+                <button class="button" onclick="nextSlide()">Continue Execution →</button>
+                <div class="progress-indicator">2 / 7</div>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide" id="slide3">
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-button red"></div>
+                    <div class="terminal-button yellow"></div>
+                    <div class="terminal-button green"></div>
+                    <span class="terminal-title">birthday_wish.js - Avni's Special Day</span>
+                </div>
+
+                <div class="code-block">
+                    <span class="comment">// Executing heartfelt_message.js</span><br><br>
+                    
+                    <span class="keyword">function</span> expressGratitude() {<br>
+                    &nbsp;&nbsp;<span class="keyword">return</span> {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;message: <span class="string">"Dear Avni,"</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;feeling: <span class="string">"Today isn't just another day—it's a celebration of YOU."</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;truth: <span class="string">"Your presence lights up every room you enter."</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;impact: <span class="string">"Your smile has the power to brighten the darkest days."</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;appreciation: <span class="string">"Every moment with you is a gift I treasure."</span><br>
+                    &nbsp;&nbsp;};<br>
+                    }
+                </div>
+
+                <button class="button" onclick="nextSlide()">Next Module →</button>
+                <div class="progress-indicator">3 / 7</div>
+            </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide" id="slide4">
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-button red"></div>
+                    <div class="terminal-button yellow"></div>
+                    <div class="terminal-button green"></div>
+                    <span class="terminal-title">birthday_wish.js - Avni's Special Day</span>
+                </div>
+
+                <div class="code-block">
+                    <span class="comment">// Analyzing what makes Avni special...</span><br><br>
+                    
+                    <span class="keyword">const</span> avniQualities = {<br>
+                    &nbsp;&nbsp;radiance: <span class="number">100</span>, <span class="comment">// Lights up every space</span><br>
+                    &nbsp;&nbsp;kindness: <span class="number">100</span>, <span class="comment">// Heart of gold</span><br>
+                    &nbsp;&nbsp;strength: <span class="number">100</span>, <span class="comment">// Inspires everyone</span><br>
+                    &nbsp;&nbsp;creativity: <span class="number">100</span>, <span class="comment">// Creates magic</span><br>
+                    &nbsp;&nbsp;smile: <span class="keyword">Infinity</span>, <span class="comment">// Priceless</span><br>
+                    &nbsp;&nbsp;uniqueness: <span class="string">"One of a kind"</span><br>
+                    };<br><br>
+                    
+                    <span class="keyword">for</span> (<span class="keyword">let</span> quality <span class="keyword">in</span> avniQualities) {<br>
+                    &nbsp;&nbsp;<span class="keyword">if</span> (avniQualities[quality] === <span class="number">100</span>) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;console.log(<span class="string">`❤️ ${quality}: MAXIMUM LEVEL`</span>);<br>
+                    &nbsp;&nbsp;}<br>
+                    }<br><br>
+                    
+                    <span class="comment">// Result: Avni is absolutely AMAZING! ✨</span>
+                </div>
+
+                <button class="button" onclick="nextSlide()">Continue →</button>
+                <div class="progress-indicator">4 / 7</div>
+            </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide" id="slide5">
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-button red"></div>
+                    <div class="terminal-button yellow"></div>
+                    <div class="terminal-button green"></div>
+                    <span class="terminal-title">birthday_wish.js - Avni's Special Day</span>
+                </div>
+
+                <div class="code-block">
+                    <span class="comment">// Compiling birthday wishes...</span><br><br>
+                    
+                    <span class="keyword">const</span> wishes = [<br>
+                    &nbsp;&nbsp;<span class="string">"May this year bring you endless joy"</span>,<br>
+                    &nbsp;&nbsp;<span class="string">"May all your dreams come true"</span>,<br>
+                    &nbsp;&nbsp;<span class="string">"May success follow you everywhere"</span>,<br>
+                    &nbsp;&nbsp;<span class="string">"May you always be surrounded by love"</span><br>
+                    ];<br><br>
+                    
+                    wishes.forEach(wish => console.log(<span class="string">"✨"</span>, wish));<br>
+                </div>
+
+                <button class="button" onclick="nextSlide()">Next Module →</button>
+                <div class="progress-indicator">5 / 7</div>
+            </div>
+        </div>
+
+        <!-- Slide 6 -->
+        <div class="slide" id="slide6">
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-button red"></div>
+                    <div class="terminal-button yellow"></div>
+                    <div class="terminal-button green"></div>
+                    <span class="terminal-title">birthday_wish.js - Avni's Special Day</span>
+                </div>
+
+                <div class="code-block">
+                    <span class="comment">// Final compilation...</span><br><br>
+                    
+                    <span class="keyword">class</span> BirthdayWish {<br>
+                    &nbsp;&nbsp;<span class="keyword">constructor</span>(recipient) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">this</span>.to = recipient;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">this</span>.from = <span class="string">"Someone who cares"</span>;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">this</span>.emotion = <span class="string">"infinite"</span>;<br>
+                    &nbsp;&nbsp;}<br><br>
+                    
+                    &nbsp;&nbsp;send() {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="string">`Happy Birthday, ${this.to}! 🎉`</span>;<br>
+                    &nbsp;&nbsp;}<br>
+                    }<br><br>
+                    
+                    <span class="keyword">const</span> wish = <span class="keyword">new</span> BirthdayWish(<span class="string">"Avni"</span>);<br>
+                    console.log(wish.send());<br>
+                </div>
+
+                <button class="button" onclick="nextSlide()">Almost There →</button>
+                <div class="progress-indicator">6 / 7</div>
+            </div>
+        </div>
+
+        <!-- Slide 7 - Photo Journey Intro -->
+        <div class="slide" id="slide7">
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-button red"></div>
+                    <div class="terminal-button yellow"></div>
+                    <div class="terminal-button green"></div>
+                    <span class="terminal-title">birthday_wish.js - Avni's Special Day</span>
+                </div>
+
+                <h1>🎉 Ready for Something Special? 🎉</h1>
+
+                <div class="code-block">
+                    <span class="comment">// Initializing photo journey...</span><br><br>
+                    
+                    <span class="keyword">const</span> photoJourney = {<br>
+                    &nbsp;&nbsp;totalSlides: <span class="number">17</span>,<br>
+                    &nbsp;&nbsp;surprises: <span class="string">"Many!"</span>,<br>
+                    &nbsp;&nbsp;messages: <span class="string">"Heartfelt & Sweet"</span>,<br>
+                    &nbsp;&nbsp;photos: <span class="string">"Beautiful memories"</span>,<br>
+                    &nbsp;&nbsp;ready: <span class="keyword">true</span><br>
+                    };<br><br>
+                    
+                    <span class="keyword">if</span> (photoJourney.ready) {<br>
+                    &nbsp;&nbsp;console.log(<span class="string">"🎊 Let's begin the journey!"</span>);<br>
+                    }
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill">0%</div>
+                </div>
+
+                <button class="button" onclick="startPhotoJourney()" style="background: #00ff00; color: #000;">
+                    Start 17-Click Journey →
+                </button>
+                <div class="progress-indicator">7 / 7 - Ready for Photo Journey!</div>
+            </div>
         </div>
     </div>
 
-    <!-- Pop-up Modal -->
+    <!-- Pop-up Modal for Photo Journey -->
     <div class="popup-modal" id="popupModal">
         <div class="popup-content">
             <span class="popup-close" onclick="closePopup()">&times;</span>
@@ -441,8 +600,24 @@
             canvas.height = window.innerHeight;
         });
 
-        // Birthday Journey Data
-        const slides = [
+        // Slide Navigation
+        let currentSlideIndex = 1;
+
+        function nextSlide() {
+            const currentSlide = document.getElementById(`slide${currentSlideIndex}`);
+            currentSlide.classList.remove('active');
+            
+            currentSlideIndex++;
+            
+            const nextSlideEl = document.getElementById(`slide${currentSlideIndex}`);
+            if (nextSlideEl) {
+                nextSlideEl.classList.add('active');
+                window.scrollTo(0, 0);
+            }
+        }
+
+        // Photo Journey Data
+        const photoSlides = [
             {
                 image: "https://picsum.photos/id/1015/600/400",
                 message: "🌟 Every moment with you is a treasure! You light up every room you enter."
@@ -513,30 +688,32 @@
             }
         ];
 
-        let currentSlide = 0;
+        let currentPhotoIndex = 0;
+        let photoJourneyStarted = false;
 
-        function nextSlide() {
-            if (currentSlide < slides.length) {
-                showPopup(currentSlide);
-                currentSlide++;
-                updateProgress();
+        function startPhotoJourney() {
+            photoJourneyStarted = true;
+            currentPhotoIndex = 0;
+            showPhotoPopup();
+        }
+
+        function showPhotoPopup() {
+            if (currentPhotoIndex < photoSlides.length) {
+                const modal = document.getElementById('popupModal');
+                const image = document.getElementById('popupImage');
+                const message = document.getElementById('popupMessage');
+                const number = document.getElementById('popupNumber');
+
+                image.src = photoSlides[currentPhotoIndex].image;
+                message.textContent = photoSlides[currentPhotoIndex].message;
+                number.textContent = `${currentPhotoIndex + 1} / 17`;
+
+                modal.classList.add('active');
+                updatePhotoProgress();
                 createConfetti();
             } else {
                 showFinalMessage();
             }
-        }
-
-        function showPopup(index) {
-            const modal = document.getElementById('popupModal');
-            const image = document.getElementById('popupImage');
-            const message = document.getElementById('popupMessage');
-            const number = document.getElementById('popupNumber');
-
-            image.src = slides[index].image;
-            message.textContent = slides[index].message;
-            number.textContent = `${index + 1} / 17`;
-
-            modal.classList.add('active');
         }
 
         function closePopup() {
@@ -546,37 +723,61 @@
 
         function closeAndNext() {
             closePopup();
+            currentPhotoIndex++;
             setTimeout(() => {
-                if (currentSlide < slides.length) {
-                    // Ready for next click
+                if (currentPhotoIndex < photoSlides.length) {
+                    showPhotoPopup();
                 } else {
                     showFinalMessage();
                 }
             }, 300);
         }
 
-        function updateProgress() {
-            const progress = (currentSlide / slides.length) * 100;
+        function updatePhotoProgress() {
+            const progress = ((currentPhotoIndex + 1) / photoSlides.length) * 100;
             const progressFill = document.getElementById('progressFill');
-            const counter = document.getElementById('counter');
-            const button = document.getElementById('startButton');
-
             progressFill.style.width = progress + '%';
             progressFill.textContent = Math.round(progress) + '%';
-            counter.textContent = `Click ${currentSlide} of 17`;
-
-            if (currentSlide >= slides.length) {
-                button.textContent = '🎉 Complete! 🎉';
-                button.style.background = '#00ff00';
-                button.style.color = '#000';
-            } else {
-                button.textContent = `Continue Journey (${currentSlide}/17) →`;
-            }
         }
 
         function showFinalMessage() {
-            const finalMessage = document.getElementById('finalMessage');
-            finalMessage.classList.add('active');
+            closePopup();
+            
+            // Update slide 7 to show completion
+            const slide7 = document.getElementById('slide7');
+            slide7.innerHTML = `
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-button red"></div>
+                        <div class="terminal-button yellow"></div>
+                        <div class="terminal-button green"></div>
+                        <span class="terminal-title">birthday_wish.js - Complete!</span>
+                    </div>
+
+                    <h1>🎉 Journey Complete! 🎉</h1>
+
+                    <div class="code-block">
+                        <span class="comment">// Mission accomplished!</span><br><br>
+                        
+                        console.log(<span class="string">"✨ You've experienced all 17 special moments!"</span>);<br>
+                        console.log(<span class="string">"🎂 Happy Birthday, Avni!"</span>);<br>
+                        console.log(<span class="string">"💖 May your day be filled with joy!"</span>);<br><br>
+                        
+                        <span class="keyword">return</span> {<br>
+                        &nbsp;&nbsp;wishes: <span class="string">"Endless happiness"</span>,<br>
+                        &nbsp;&nbsp;success: <span class="string">"In everything you do"</span>,<br>
+                        &nbsp;&nbsp;adventures: <span class="string">"Amazing ones ahead"</span>,<br>
+                        &nbsp;&nbsp;love: <span class="keyword">Infinity</span><br>
+                        };<br><br>
+                        
+                        <span class="comment">// 🌟 Wishing you the best year ever! 🌟</span>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%;">100% Complete! 🎊</div>
+                    </div>
+                </div>
+            `;
             
             // Create massive confetti
             for (let i = 0; i < 100; i++) {
