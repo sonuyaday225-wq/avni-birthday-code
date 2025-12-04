@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Avni!</title>
+    <title>Happy Birthday Avni! 🎉</title>
     <style>
         * {
             margin: 0;
@@ -12,108 +12,164 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Courier New', monospace;
+            background: #0d0d0d;
+            color: #00ff00;
+            overflow-x: hidden;
+        }
+
+        /* Matrix Rain Effect */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        /* Main Content */
+        .content {
+            position: relative;
+            z-index: 1;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             padding: 20px;
-            color: white;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .terminal {
+            background: rgba(0, 20, 0, 0.9);
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+            margin-bottom: 50px;
         }
 
-        header {
-            text-align: center;
-            padding: 40px 20px;
-            animation: fadeInDown 1s ease-in;
+        .terminal-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .terminal-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .red { background: #ff5f56; }
+        .yellow { background: #ffbd2e; }
+        .green { background: #27c93f; }
+
+        .terminal-title {
+            color: #00ff00;
+            font-size: 14px;
+            margin-left: 10px;
         }
 
         h1 {
-            font-size: 3.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            animation: bounce 2s infinite;
-        }
-
-        .subtitle {
-            font-size: 1.5em;
-            opacity: 0.9;
-        }
-
-        /* Music Player Styles */
-        .music-player {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 20px;
-            margin: 30px auto;
-            max-width: 400px;
+            font-size: 2.5em;
             text-align: center;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            text-shadow: 0 0 10px #00ff00;
+            animation: glow 2s ease-in-out infinite;
         }
 
-        .music-controls {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 15px;
+        .code-block {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-left: 3px solid #00ff00;
+            margin: 20px 0;
+            font-size: 14px;
+            line-height: 1.6;
         }
 
-        .music-controls button {
-            background: white;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
+        .comment {
+            color: #888;
+            font-style: italic;
+        }
+
+        .keyword {
+            color: #00ffff;
+        }
+
+        .string {
+            color: #ffff00;
+        }
+
+        .button {
+            background: transparent;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            padding: 12px 30px;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
             cursor: pointer;
-            font-size: 20px;
-            transition: transform 0.2s;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            margin: 20px auto;
+            display: block;
+            transition: all 0.3s;
         }
 
-        .music-controls button:hover {
-            transform: scale(1.1);
+        .button:hover {
+            background: #00ff00;
+            color: #000;
+            box-shadow: 0 0 20px #00ff00;
         }
 
-        .music-controls button:active {
-            transform: scale(0.95);
-        }
-
-        /* Photo Gallery Styles */
+        /* Photo Gallery Section */
         .gallery-section {
-            margin: 50px 0;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            padding: 50px 20px;
+            background: rgba(0, 20, 0, 0.95);
         }
 
         .gallery-title {
             text-align: center;
             font-size: 2.5em;
-            margin-bottom: 30px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            color: #00ff00;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        .gallery-subtitle {
+            text-align: center;
+            color: #00ff00;
+            margin-bottom: 40px;
+            opacity: 0.8;
         }
 
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 20px;
         }
 
         .gallery-item {
             position: relative;
             overflow: hidden;
-            border-radius: 15px;
+            border-radius: 10px;
             cursor: pointer;
             aspect-ratio: 1;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
-            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #00ff00;
+            transition: all 0.3s ease;
+            background: rgba(0, 0, 0, 0.5);
         }
 
         .gallery-item:hover {
             transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
         }
 
         .gallery-item img {
@@ -121,30 +177,13 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s ease;
-            display: block;
         }
 
         .gallery-item:hover img {
             transform: scale(1.1);
         }
 
-        /* Loading state */
-        .gallery-item::before {
-            content: '📷';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 3em;
-            opacity: 0.3;
-        }
-
-        .gallery-item img[src] {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Lightbox Styles */
+        /* Lightbox */
         .lightbox {
             display: none;
             position: fixed;
@@ -153,7 +192,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.95);
-            z-index: 1000;
+            z-index: 2000;
             justify-content: center;
             align-items: center;
         }
@@ -173,7 +212,8 @@
             max-width: 100%;
             max-height: 90vh;
             border-radius: 10px;
-            box-shadow: 0 0 50px rgba(255,255,255,0.3);
+            border: 3px solid #00ff00;
+            box-shadow: 0 0 50px rgba(0, 255, 0, 0.5);
         }
 
         .lightbox-close {
@@ -181,21 +221,23 @@
             top: 20px;
             right: 40px;
             font-size: 40px;
-            color: white;
+            color: #00ff00;
             cursor: pointer;
-            background: rgba(255,255,255,0.2);
+            background: rgba(0, 0, 0, 0.8);
             width: 50px;
             height: 50px;
             border-radius: 50%;
+            border: 2px solid #00ff00;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.3s;
-            z-index: 1001;
+            transition: all 0.3s;
+            z-index: 2001;
         }
 
         .lightbox-close:hover {
-            background: rgba(255,255,255,0.4);
+            background: #00ff00;
+            color: #000;
         }
 
         .lightbox-nav {
@@ -203,22 +245,24 @@
             top: 50%;
             transform: translateY(-50%);
             font-size: 40px;
-            color: white;
+            color: #00ff00;
             cursor: pointer;
-            background: rgba(255,255,255,0.2);
+            background: rgba(0, 0, 0, 0.8);
             width: 50px;
             height: 50px;
             border-radius: 50%;
+            border: 2px solid #00ff00;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.3s;
+            transition: all 0.3s;
             user-select: none;
-            z-index: 1001;
+            z-index: 2001;
         }
 
         .lightbox-nav:hover {
-            background: rgba(255,255,255,0.4);
+            background: #00ff00;
+            color: #000;
         }
 
         .lightbox-prev {
@@ -234,33 +278,55 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            color: white;
+            color: #00ff00;
             font-size: 18px;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.8);
             padding: 10px 20px;
             border-radius: 20px;
-            z-index: 1001;
+            border: 2px solid #00ff00;
+            z-index: 2001;
         }
 
-        /* Animations */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Music Player */
+        .music-player {
+            background: rgba(0, 20, 0, 0.9);
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
         }
 
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
+        .music-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .music-controls button {
+            background: transparent;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s;
+        }
+
+        .music-controls button:hover {
+            background: #00ff00;
+            color: #000;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 10px #00ff00; }
+            50% { text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00; }
         }
 
         @keyframes zoomIn {
@@ -274,14 +340,9 @@
             }
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             h1 {
-                font-size: 2.5em;
-            }
-
-            .gallery-title {
-                font-size: 2em;
+                font-size: 1.8em;
             }
 
             .gallery-grid {
@@ -311,18 +372,40 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🎉 Happy Birthday Avni! 🎂</h1>
-            <p class="subtitle">Wishing you a day filled with love and joy!</p>
-        </header>
+    <!-- Matrix Rain Background -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Main Content -->
+    <div class="content">
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="terminal-button red"></div>
+                <div class="terminal-button yellow"></div>
+                <div class="terminal-button green"></div>
+                <span class="terminal-title">birthday_wish.js - Avni's Special Day</span>
+            </div>
+
+            <h1>Happy Birthday<br>Avni</h1>
+
+            <div class="code-block">
+                <span class="comment">// Initializing birthday celebration...</span><br>
+                <span class="keyword">const</span> today = <span class="keyword">new</span> Date();<br>
+                <span class="keyword">const</span> specialPerson = <span class="string">"Avni"</span>;<br>
+                <span class="keyword">const</span> celebration = <span class="keyword">true</span>;<br><br>
+                
+                <span class="keyword">if</span> (celebration) {<br>
+                &nbsp;&nbsp;console.log(<span class="string">"🎉 Let's celebrate the amazing Avni! 🎂"</span>);<br>
+                }
+            </div>
+
+            <button class="button" onclick="scrollToGallery()">View Photo Gallery →</button>
+        </div>
 
         <!-- Music Player -->
         <div class="music-player">
             <h3>🎵 Birthday Music 🎵</h3>
             <audio id="birthdayMusic" loop>
                 <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-                Your browser does not support the audio element.
             </audio>
             <div class="music-controls">
                 <button id="playBtn" onclick="toggleMusic()">▶️</button>
@@ -330,45 +413,45 @@
             </div>
             <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">Click play to start the music!</p>
         </div>
-
-        <!-- Photo Gallery -->
-        <section class="gallery-section">
-            <h2 class="gallery-title">📸 Memory Gallery 📸</h2>
-            <p style="text-align: center; margin-bottom: 20px; opacity: 0.9;">Click on any photo to view it larger</p>
-            <div class="gallery-grid">
-                <div class="gallery-item" onclick="openLightbox(0)">
-                    <img src="https://picsum.photos/id/1015/600/600" alt="Beautiful Nature 1" loading="lazy">
-                </div>
-                <div class="gallery-item" onclick="openLightbox(1)">
-                    <img src="https://picsum.photos/id/1018/600/600" alt="Beautiful Nature 2" loading="lazy">
-                </div>
-                <div class="gallery-item" onclick="openLightbox(2)">
-                    <img src="https://picsum.photos/id/1019/600/600" alt="Beautiful Nature 3" loading="lazy">
-                </div>
-                <div class="gallery-item" onclick="openLightbox(3)">
-                    <img src="https://picsum.photos/id/1025/600/600" alt="Beautiful Nature 4" loading="lazy">
-                </div>
-                <div class="gallery-item" onclick="openLightbox(4)">
-                    <img src="https://picsum.photos/id/1035/600/600" alt="Beautiful Nature 5" loading="lazy">
-                </div>
-                <div class="gallery-item" onclick="openLightbox(5)">
-                    <img src="https://picsum.photos/id/1036/600/600" alt="Beautiful Nature 6" loading="lazy">
-                </div>
-                <div class="gallery-item" onclick="openLightbox(6)">
-                    <img src="https://picsum.photos/id/1040/600/600" alt="Beautiful Nature 7" loading="lazy">
-                </div>
-                <div class="gallery-item" onclick="openLightbox(7)">
-                    <img src="https://picsum.photos/id/1043/600/600" alt="Beautiful Nature 8" loading="lazy">
-                </div>
-                <div class="gallery-item" onclick="openLightbox(8)">
-                    <img src="https://picsum.photos/id/1044/600/600" alt="Beautiful Nature 9" loading="lazy">
-                </div>
-                <div class="gallery-item" onclick="openLightbox(9)">
-                    <img src="https://picsum.photos/id/1047/600/600" alt="Beautiful Nature 10" loading="lazy">
-                </div>
-            </div>
-        </section>
     </div>
+
+    <!-- Photo Gallery Section -->
+    <section class="gallery-section" id="gallery">
+        <h2 class="gallery-title">📸 Memory Gallery 📸</h2>
+        <p class="gallery-subtitle">Click on any photo to view it larger</p>
+        <div class="gallery-grid">
+            <div class="gallery-item" onclick="openLightbox(0)">
+                <img src="https://picsum.photos/id/1015/600/600" alt="Memory 1" loading="lazy">
+            </div>
+            <div class="gallery-item" onclick="openLightbox(1)">
+                <img src="https://picsum.photos/id/1018/600/600" alt="Memory 2" loading="lazy">
+            </div>
+            <div class="gallery-item" onclick="openLightbox(2)">
+                <img src="https://picsum.photos/id/1019/600/600" alt="Memory 3" loading="lazy">
+            </div>
+            <div class="gallery-item" onclick="openLightbox(3)">
+                <img src="https://picsum.photos/id/1025/600/600" alt="Memory 4" loading="lazy">
+            </div>
+            <div class="gallery-item" onclick="openLightbox(4)">
+                <img src="https://picsum.photos/id/1035/600/600" alt="Memory 5" loading="lazy">
+            </div>
+            <div class="gallery-item" onclick="openLightbox(5)">
+                <img src="https://picsum.photos/id/1036/600/600" alt="Memory 6" loading="lazy">
+            </div>
+            <div class="gallery-item" onclick="openLightbox(6)">
+                <img src="https://picsum.photos/id/1040/600/600" alt="Memory 7" loading="lazy">
+            </div>
+            <div class="gallery-item" onclick="openLightbox(7)">
+                <img src="https://picsum.photos/id/1043/600/600" alt="Memory 8" loading="lazy">
+            </div>
+            <div class="gallery-item" onclick="openLightbox(8)">
+                <img src="https://picsum.photos/id/1044/600/600" alt="Memory 9" loading="lazy">
+            </div>
+            <div class="gallery-item" onclick="openLightbox(9)">
+                <img src="https://picsum.photos/id/1047/600/600" alt="Memory 10" loading="lazy">
+            </div>
+        </div>
+    </section>
 
     <!-- Lightbox -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
@@ -382,6 +465,47 @@
     </div>
 
     <script>
+        // Matrix Rain Effect
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const matrix = "HAPPYBIRTHDAYAVNI01";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff00';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = matrix[Math.floor(Math.random() * matrix.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 35);
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
         // Music Player
         const music = document.getElementById('birthdayMusic');
         const playBtn = document.getElementById('playBtn');
@@ -396,6 +520,11 @@
                 playBtn.textContent = '⏸️';
             }
             isPlaying = !isPlaying;
+        }
+
+        // Scroll to Gallery
+        function scrollToGallery() {
+            document.getElementById('gallery').scrollIntoView({ behavior: 'smooth' });
         }
 
         // Lightbox Gallery
@@ -458,14 +587,6 @@
                     closeLightbox({target: lightbox});
                 }
             }
-        });
-
-        // Preload images
-        window.addEventListener('load', function() {
-            images.forEach(src => {
-                const img = new Image();
-                img.src = src;
-            });
         });
     </script>
 </body>
