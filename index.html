@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Avni 🎂</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Happy Birthday Avni!</title>
     <style>
         * {
             margin: 0;
@@ -13,167 +12,220 @@
         }
 
         body {
-            font-family: 'Fira Code', monospace;
-            background: #0a0a0a;
-            color: #00ff00;
-            overflow: hidden;
-            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
         }
 
-        /* Matrix Rain Effect */
-        #matrix-canvas {
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            animation: fadeInDown 1s ease-in;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: bounce 2s infinite;
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            opacity: 0.9;
+        }
+
+        /* Music Player Styles */
+        .music-player {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .music-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .music-controls button {
+            background: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 20px;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .music-controls button:hover {
+            transform: scale(1.1);
+        }
+
+        .music-controls button:active {
+            transform: scale(0.95);
+        }
+
+        /* Photo Gallery Styles */
+        .gallery-section {
+            margin: 50px 0;
+        }
+
+        .gallery-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            cursor: pointer;
+            aspect-ratio: 1;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Lightbox Styles */
+        .lightbox {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0;
-            opacity: 0.15;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* Main Container */
-        .container {
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
             position: relative;
-            z-index: 1;
-            height: 100vh;
+            max-width: 90%;
+            max-height: 90%;
+            animation: zoomIn 0.3s ease;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(255,255,255,0.3);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            background: rgba(255,255,255,0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: background 0.3s;
         }
 
-        /* Terminal Window */
-        .terminal {
-            background: rgba(0, 0, 0, 0.9);
-            border: 2px solid #00ff00;
-            border-radius: 10px;
-            max-width: 900px;
-            width: 90%;
-            box-shadow: 0 0 50px rgba(0, 255, 0, 0.3);
-            overflow: hidden;
+        .lightbox-close:hover {
+            background: rgba(255,255,255,0.4);
         }
 
-        .terminal-header {
-            background: #1a1a1a;
-            padding: 10px 15px;
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            background: rgba(255,255,255,0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 8px;
-            border-bottom: 1px solid #00ff00;
+            justify-content: center;
+            transition: background 0.3s;
+            user-select: none;
         }
 
-        .terminal-button {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
+        .lightbox-nav:hover {
+            background: rgba(255,255,255,0.4);
         }
 
-        .terminal-button.red { background: #ff5f56; }
-        .terminal-button.yellow { background: #ffbd2e; }
-        .terminal-button.green { background: #27c93f; }
-
-        .terminal-title {
-            margin-left: 10px;
-            color: #00ff00;
-            font-size: 0.9rem;
+        .lightbox-prev {
+            left: 40px;
         }
 
-        .terminal-body {
-            padding: 30px;
-            min-height: 500px;
-            max-height: 70vh;
-            overflow-y: auto;
+        .lightbox-next {
+            right: 40px;
         }
 
-        /* Typing Animation */
-        .code-line {
-            margin-bottom: 10px;
-            font-size: 1rem;
-            line-height: 1.6;
-            opacity: 0;
-            animation: fadeIn 0.3s ease forwards;
+        .lightbox-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 18px;
+            background: rgba(0,0,0,0.5);
+            padding: 10px 20px;
+            border-radius: 20px;
         }
 
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-
-        .cursor {
-            display: inline-block;
-            width: 10px;
-            height: 18px;
-            background: #00ff00;
-            animation: blink 1s infinite;
-            margin-left: 2px;
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-        }
-
-        /* Code Syntax Highlighting */
-        .keyword { color: #ff79c6; }
-        .function { color: #50fa7b; }
-        .string { color: #f1fa8c; }
-        .comment { color: #6272a4; font-style: italic; }
-        .variable { color: #8be9fd; }
-        .number { color: #bd93f9; }
-        .operator { color: #ff79c6; }
-
-        /* Glitch Effect */
-        .glitch {
-            position: relative;
-            animation: glitch 3s infinite;
-        }
-
-        @keyframes glitch {
-            0%, 90%, 100% {
-                transform: translate(0);
-            }
-            92% {
-                transform: translate(-2px, 2px);
-            }
-            94% {
-                transform: translate(2px, -2px);
-            }
-            96% {
-                transform: translate(-2px, -2px);
-            }
-            98% {
-                transform: translate(2px, 2px);
-            }
-        }
-
-        /* Interactive Code Blocks */
-        .code-block {
-            background: rgba(0, 255, 0, 0.05);
-            border-left: 3px solid #00ff00;
-            padding: 15px;
-            margin: 20px 0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .code-block:hover {
-            background: rgba(0, 255, 0, 0.1);
-            transform: translateX(10px);
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
-        }
-
-        /* Slide System */
-        .slide {
-            display: none;
-        }
-
-        .slide.active {
-            display: block;
-            animation: slideIn 0.5s ease;
-        }
-
-        @keyframes slideIn {
+        /* Animations */
+        @keyframes fadeInDown {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(-50px);
             }
             to {
                 opacity: 1;
@@ -181,474 +233,210 @@
             }
         }
 
-        /* Button */
-        .terminal-button-action {
-            background: transparent;
-            border: 2px solid #00ff00;
-            color: #00ff00;
-            padding: 12px 30px;
-            font-family: 'Fira Code', monospace;
-            font-size: 1rem;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
-        .terminal-button-action::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: #00ff00;
-            transition: left 0.3s ease;
-            z-index: -1;
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
-        .terminal-button-action:hover::before {
-            left: 0;
-        }
-
-        .terminal-button-action:hover {
-            color: #000;
-        }
-
-        /* Progress Bar */
-        .progress-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            height: 3px;
-            background: #00ff00;
-            transition: width 0.3s ease;
-            z-index: 1000;
-            box-shadow: 0 0 10px #00ff00;
-        }
-
-        /* Slide Counter */
-        .slide-counter {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid #00ff00;
-            padding: 10px 20px;
-            border-radius: 5px;
-            z-index: 1000;
-            font-size: 0.9rem;
-        }
-
-        /* ASCII Art */
-        .ascii-art {
-            color: #00ff00;
-            font-size: 0.7rem;
-            line-height: 1.2;
-            white-space: pre;
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        /* Loading Animation */
-        .loading {
-            color: #00ff00;
-            font-size: 1.2rem;
-        }
-
-        .loading::after {
-            content: '';
-            animation: dots 1.5s infinite;
-        }
-
-        @keyframes dots {
-            0%, 20% { content: ''; }
-            40% { content: '.'; }
-            60% { content: '..'; }
-            80%, 100% { content: '...'; }
-        }
-
-        /* Responsive */
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .terminal {
-                width: 95%;
-                max-width: none;
+            h1 {
+                font-size: 2.5em;
             }
-            .terminal-body {
-                padding: 20px;
-                font-size: 0.85rem;
+
+            .gallery-title {
+                font-size: 2em;
             }
-            .code-line {
-                font-size: 0.85rem;
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 10px;
             }
-            .ascii-art {
-                font-size: 0.5rem;
+
+            .lightbox-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 30px;
             }
-        }
 
-        /* Scrollbar */
-        .terminal-body::-webkit-scrollbar {
-            width: 8px;
-        }
+            .lightbox-prev {
+                left: 10px;
+            }
 
-        .terminal-body::-webkit-scrollbar-track {
-            background: #1a1a1a;
-        }
+            .lightbox-next {
+                right: 10px;
+            }
 
-        .terminal-body::-webkit-scrollbar-thumb {
-            background: #00ff00;
-            border-radius: 4px;
-        }
-
-        /* Neon Glow */
-        .neon {
-            text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+            .lightbox-close {
+                top: 10px;
+                right: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Matrix Rain Canvas -->
-    <canvas id="matrix-canvas"></canvas>
-
-    <!-- Progress Bar -->
-    <div class="progress-bar" id="progressBar"></div>
-
-    <!-- Slide Counter -->
-    <div class="slide-counter" id="slideCounter">1 / 7</div>
-
-    <!-- Main Container -->
     <div class="container">
-        <div class="terminal">
-            <div class="terminal-header">
-                <div class="terminal-button red"></div>
-                <div class="terminal-button yellow"></div>
-                <div class="terminal-button green"></div>
-                <div class="terminal-title">birthday_wish.js - Avni's Special Day</div>
+        <header>
+            <h1>🎉 Happy Birthday Avni! 🎂</h1>
+            <p class="subtitle">Wishing you a day filled with love and joy!</p>
+        </header>
+
+        <!-- Music Player -->
+        <div class="music-player">
+            <h3>🎵 Birthday Music 🎵</h3>
+            <audio id="birthdayMusic" loop>
+                <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <div class="music-controls">
+                <button id="playBtn" onclick="toggleMusic()">▶️</button>
+                <button onclick="document.getElementById('birthdayMusic').currentTime = 0">⏮️</button>
             </div>
-            <div class="terminal-body" id="terminalBody">
-                <!-- Slides will be injected here -->
-            </div>
+            <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">Click play to start the music!</p>
         </div>
+
+        <!-- Photo Gallery -->
+        <section class="gallery-section">
+            <h2 class="gallery-title">📸 Memory Gallery 📸</h2>
+            <div class="gallery-grid">
+                <!-- Replace these placeholder images with your actual photos -->
+                <div class="gallery-item" onclick="openLightbox(0)">
+                    <img src="https://picsum.photos/400/400?random=1" alt="Memory 1">
+                </div>
+                <div class="gallery-item" onclick="openLightbox(1)">
+                    <img src="https://picsum.photos/400/400?random=2" alt="Memory 2">
+                </div>
+                <div class="gallery-item" onclick="openLightbox(2)">
+                    <img src="https://picsum.photos/400/400?random=3" alt="Memory 3">
+                </div>
+                <div class="gallery-item" onclick="openLightbox(3)">
+                    <img src="https://picsum.photos/400/400?random=4" alt="Memory 4">
+                </div>
+                <div class="gallery-item" onclick="openLightbox(4)">
+                    <img src="https://picsum.photos/400/400?random=5" alt="Memory 5">
+                </div>
+                <div class="gallery-item" onclick="openLightbox(5)">
+                    <img src="https://picsum.photos/400/400?random=6" alt="Memory 6">
+                </div>
+                <div class="gallery-item" onclick="openLightbox(6)">
+                    <img src="https://picsum.photos/400/400?random=7" alt="Memory 7">
+                </div>
+                <div class="gallery-item" onclick="openLightbox(7)">
+                    <img src="https://picsum.photos/400/400?random=8" alt="Memory 8">
+                </div>
+                <div class="gallery-item" onclick="openLightbox(8)">
+                    <img src="https://picsum.photos/400/400?random=9" alt="Memory 9">
+                </div>
+                <div class="gallery-item" onclick="openLightbox(9)">
+                    <img src="https://picsum.photos/400/400?random=10" alt="Memory 10">
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+        <span class="lightbox-close" onclick="closeLightbox(event)">&times;</span>
+        <span class="lightbox-nav lightbox-prev" onclick="changeImage(-1, event)">❮</span>
+        <div class="lightbox-content">
+            <img id="lightboxImg" src="" alt="Gallery Image">
+        </div>
+        <span class="lightbox-nav lightbox-next" onclick="changeImage(1, event)">❯</span>
+        <div class="lightbox-counter" id="lightboxCounter"></div>
     </div>
 
     <script>
-        // Matrix Rain Effect
-        const canvas = document.getElementById('matrix-canvas');
-        const ctx = canvas.getContext('2d');
+        // Music Player
+        const music = document.getElementById('birthdayMusic');
+        const playBtn = document.getElementById('playBtn');
+        let isPlaying = false;
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
-        const matrixArray = matrix.split("");
-
-        const fontSize = 16;
-        const columns = canvas.width / fontSize;
-
-        const drops = [];
-        for (let x = 0; x < columns; x++) {
-            drops[x] = 1;
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                playBtn.textContent = '▶️';
+            } else {
+                music.play();
+                playBtn.textContent = '⏸️';
+            }
+            isPlaying = !isPlaying;
         }
 
-        function drawMatrix() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = "#00ff00";
-            ctx.font = fontSize + "px monospace";
-
-            for (let i = 0; i < drops.length; i++) {
-                const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-        }
-
-        setInterval(drawMatrix, 35);
-
-        // Slide Content
-        const slides = [
-            // Slide 1: Welcome
-            {
-                content: `
-<div class="ascii-art neon">
-  _   _                           ____  _      _   _         _             
- | | | | __ _ _ __  _ __  _   _  | __ )(_)_ __| |_| |__   __| | __ _ _   _ 
- | |_| |/ _\` | '_ \\| '_ \\| | | | |  _ \\| | '__| __| '_ \\ / _\` |/ _\` | | | |
- |  _  | (_| | |_) | |_) | |_| | | |_) | | |  | |_| | | | (_| | (_| | |_| |
- |_| |_|\\__,_| .__/| .__/ \\__, | |____/|_|_|   \\__|_| |_|\\__,_|\\__,_|\\__, |
-             |_|   |_|    |___/                                       |___/ 
-    _             _ 
-   / \\__   ___ __ (_)
-  / _ \\ \\ / / '_ \\| |
- / ___ \\ V /| | | | |
-/_/   \\_\\_/ |_| |_|_|
-</div>
-<div class="code-line"><span class="comment">// Initializing birthday celebration...</span></div>
-<div class="code-line"><span class="keyword">const</span> <span class="variable">today</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="function">Date</span>();</div>
-<div class="code-line"><span class="keyword">const</span> <span class="variable">specialPerson</span> <span class="operator">=</span> <span class="string">"Avni"</span>;</div>
-<div class="code-line"><span class="keyword">const</span> <span class="variable">celebration</span> <span class="operator">=</span> <span class="keyword">true</span>;</div>
-<div class="code-line"></div>
-<div class="code-line"><span class="keyword">if</span> (<span class="variable">celebration</span>) {</div>
-<div class="code-line">    <span class="function">console</span>.<span class="function">log</span>(<span class="string">"🎉 Let's celebrate the amazing Avni! 🎂"</span>);</div>
-<div class="code-line">}</div>
-<div class="code-line"></div>
-<div class="code-line glitch neon" style="font-size: 1.2rem; margin-top: 20px;">>>> PRESS ENTER TO BEGIN THE JOURNEY <<<</div>
-<button class="terminal-button-action" onclick="nextSlide()">Execute Program →</button>
-`
-            },
-            // Slide 2: Loading
-            {
-                content: `
-<div class="code-line"><span class="comment">// Loading birthday modules...</span></div>
-<div class="code-line"></div>
-<div class="code-line"><span class="keyword">import</span> { <span class="variable">love</span>, <span class="variable">happiness</span>, <span class="variable">joy</span> } <span class="keyword">from</span> <span class="string">'./emotions'</span>;</div>
-<div class="code-line"><span class="keyword">import</span> { <span class="variable">memories</span>, <span class="variable">moments</span> } <span class="keyword">from</span> <span class="string">'./timeline'</span>;</div>
-<div class="code-line"><span class="keyword">import</span> { <span class="variable">wishes</span>, <span class="variable">dreams</span> } <span class="keyword">from</span> <span class="string">'./future'</span>;</div>
-<div class="code-line"></div>
-<div class="code-line"><span class="comment">// Compiling heartfelt message...</span></div>
-<div class="code-line"><span class="loading">Loading</span></div>
-<div class="code-line"></div>
-<div class="code-block">
-<div class="code-line"><span class="keyword">class</span> <span class="function">BirthdayMessage</span> {</div>
-<div class="code-line">    <span class="function">constructor</span>(<span class="variable">recipient</span>) {</div>
-<div class="code-line">        <span class="keyword">this</span>.<span class="variable">to</span> = <span class="variable">recipient</span>;</div>
-<div class="code-line">        <span class="keyword">this</span>.<span class="variable">from</span> = <span class="string">"Someone who cares"</span>;</div>
-<div class="code-line">        <span class="keyword">this</span>.<span class="variable">emotion</span> = <span class="string">"infinite"</span>;</div>
-<div class="code-line">    }</div>
-<div class="code-line">}</div>
-</div>
-<div class="code-line"></div>
-<div class="code-line"><span class="keyword">const</span> <span class="variable">message</span> = <span class="keyword">new</span> <span class="function">BirthdayMessage</span>(<span class="string">"Avni"</span>);</div>
-<button class="terminal-button-action" onclick="nextSlide()">Continue Execution →</button>
-`
-            },
-            // Slide 3: Message
-            {
-                content: `
-<div class="code-line"><span class="comment">// Executing heartfelt_message.js</span></div>
-<div class="code-line"></div>
-<div class="code-block">
-<div class="code-line"><span class="keyword">function</span> <span class="function">expressGratitude</span>() {</div>
-<div class="code-line">    <span class="keyword">return</span> {</div>
-<div class="code-line">        <span class="variable">message</span>: <span class="string">"Dear Avni,"</span>,</div>
-<div class="code-line">        <span class="variable">feeling</span>: <span class="string">"Today isn't just another day—it's a celebration of YOU."</span>,</div>
-<div class="code-line">        <span class="variable">truth</span>: <span class="string">"Your presence lights up every room you enter."</span>,</div>
-<div class="code-line">        <span class="variable">impact</span>: <span class="string">"Your smile has the power to brighten the darkest days."</span>,</div>
-<div class="code-line">        <span class="variable">appreciation</span>: <span class="string">"Every moment with you is a gift I treasure."</span></div>
-<div class="code-line">    };</div>
-<div class="code-line">}</div>
-</div>
-<div class="code-line"></div>
-<div class="code-block">
-<div class="code-line"><span class="keyword">const</span> <span class="variable">wishes</span> = [</div>
-<div class="code-line">    <span class="string">"May this year bring you endless joy"</span>,</div>
-<div class="code-line">    <span class="string">"May all your dreams come true"</span>,</div>
-<div class="code-line">    <span class="string">"May success follow you everywhere"</span>,</div>
-<div class="code-line">    <span class="string">"May you always be surrounded by love"</span></div>
-<div class="code-line">];</div>
-</div>
-<div class="code-line"></div>
-<div class="code-line"><span class="variable">wishes</span>.<span class="function">forEach</span>(<span class="variable">wish</span> <span class="operator">=></span> <span class="function">console</span>.<span class="function">log</span>(<span class="string">"✨"</span>, <span class="variable">wish</span>));</div>
-<button class="terminal-button-action" onclick="nextSlide()">Next Module →</button>
-`
-            },
-            // Slide 4: Qualities
-            {
-                content: `
-<div class="code-line"><span class="comment">// Analyzing what makes Avni special...</span></div>
-<div class="code-line"></div>
-<div class="code-block">
-<div class="code-line"><span class="keyword">const</span> <span class="variable">avniQualities</span> = {</div>
-<div class="code-line">    <span class="variable">radiance</span>: <span class="number">100</span>, <span class="comment">// Lights up every space</span></div>
-<div class="code-line">    <span class="variable">kindness</span>: <span class="number">100</span>, <span class="comment">// Heart of gold</span></div>
-<div class="code-line">    <span class="variable">strength</span>: <span class="number">100</span>, <span class="comment">// Inspires everyone</span></div>
-<div class="code-line">    <span class="variable">creativity</span>: <span class="number">100</span>, <span class="comment">// Creates magic</span></div>
-<div class="code-line">    <span class="variable">smile</span>: <span class="number">Infinity</span>, <span class="comment">// Priceless</span></div>
-<div class="code-line">    <span class="variable">uniqueness</span>: <span class="string">"One of a kind"</span></div>
-<div class="code-line">};</div>
-</div>
-<div class="code-line"></div>
-<div class="code-block">
-<div class="code-line"><span class="keyword">for</span> (<span class="keyword">let</span> <span class="variable">quality</span> <span class="keyword">in</span> <span class="variable">avniQualities</span>) {</div>
-<div class="code-line">    <span class="keyword">if</span> (<span class="variable">avniQualities</span>[<span class="variable">quality</span>] === <span class="number">100</span>) {</div>
-<div class="code-line">        <span class="function">console</span>.<span class="function">log</span>(<span class="string">\`💖 \${quality}: MAXIMUM LEVEL\`</span>);</div>
-<div class="code-line">    }</div>
-<div class="code-line">}</div>
-</div>
-<div class="code-line"></div>
-<div class="code-line neon"><span class="comment">// Result: Avni is absolutely AMAZING! ✨</span></div>
-<button class="terminal-button-action" onclick="nextSlide()">Continue →</button>
-`
-            },
-            // Slide 5: Timeline
-            {
-                content: `
-<div class="code-line"><span class="comment">// Loading timeline.db...</span></div>
-<div class="code-line"></div>
-<div class="code-block">
-<div class="code-line"><span class="keyword">const</span> <span class="variable">timeline</span> = [</div>
-<div class="code-line">    {</div>
-<div class="code-line">        <span class="variable">event</span>: <span class="string">"The Beginning"</span>,</div>
-<div class="code-line">        <span class="variable">icon</span>: <span class="string">"🌅"</span>,</div>
-<div class="code-line">        <span class="variable">memory</span>: <span class="string">"From the moment we met, I knew you were extraordinary"</span></div>
-<div class="code-line">    },</div>
-<div class="code-line">    {</div>
-<div class="code-line">        <span class="variable">event</span>: <span class="string">"Building Memories"</span>,</div>
-<div class="code-line">        <span class="variable">icon</span>: <span class="string">"📸"</span>,</div>
-<div class="code-line">        <span class="variable">memory</span>: <span class="string">"Every laugh, every moment - treasured forever"</span></div>
-<div class="code-line">    },</div>
-<div class="code-line">    {</div>
-<div class="code-line">        <span class="variable">event</span>: <span class="string">"Growing Together"</span>,</div>
-<div class="code-line">        <span class="variable">icon</span>: <span class="string">"🌱"</span>,</div>
-<div class="code-line">        <span class="variable">memory</span>: <span class="string">"Through ups and downs, we've grown stronger"</span></div>
-<div class="code-line">    },</div>
-<div class="code-line">    {</div>
-<div class="code-line">        <span class="variable">event</span>: <span class="string">"Today & Beyond"</span>,</div>
-<div class="code-line">        <span class="variable">icon</span>: <span class="string">"🚀"</span>,</div>
-<div class="code-line">        <span class="variable">memory</span>: <span class="string">"The best is yet to come!"</span></div>
-<div class="code-line">    }</div>
-<div class="code-line">];</div>
-</div>
-<div class="code-line"></div>
-<div class="code-line"><span class="variable">timeline</span>.<span class="function">map</span>(<span class="variable">moment</span> <span class="operator">=></span> <span class="function">console</span>.<span class="function">log</span>(<span class="variable">moment</span>.<span class="variable">icon</span>, <span class="variable">moment</span>.<span class="variable">event</span>));</div>
-<button class="terminal-button-action" onclick="nextSlide()">Next →</button>
-`
-            },
-            // Slide 6: Countdown
-            {
-                content: `
-<div class="code-line"><span class="comment">// Calculating time shared together...</span></div>
-<div class="code-line"></div>
-<div class="code-block">
-<div class="code-line"><span class="keyword">const</span> <span class="variable">startDate</span> = <span class="keyword">new</span> <span class="function">Date</span>(<span class="string">'2024-01-01'</span>);</div>
-<div class="code-line"><span class="keyword">const</span> <span class="variable">now</span> = <span class="keyword">new</span> <span class="function">Date</span>();</div>
-<div class="code-line"><span class="keyword">const</span> <span class="variable">timeTogether</span> = <span class="variable">now</span> - <span class="variable">startDate</span>;</div>
-<div class="code-line"></div>
-<div class="code-line"><span class="keyword">const</span> <span class="variable">stats</span> = {</div>
-<div class="code-line">    <span class="variable">days</span>: <span class="number" id="days">0</span>,</div>
-<div class="code-line">    <span class="variable">hours</span>: <span class="number" id="hours">0</span>,</div>
-<div class="code-line">    <span class="variable">minutes</span>: <span class="number" id="minutes">0</span>,</div>
-<div class="code-line">    <span class="variable">seconds</span>: <span class="number" id="seconds">0</span></div>
-<div class="code-line">};</div>
-</div>
-<div class="code-line"></div>
-<div class="code-line neon"><span class="comment">// Every moment has been precious 💫</span></div>
-<div class="code-line"></div>
-<div class="code-line"><span class="function">console</span>.<span class="function">log</span>(<span class="string">"Time is just a number, memories are forever ✨"</span>);</div>
-<button class="terminal-button-action" onclick="nextSlide()">Final Message →</button>
-`
-            },
-            // Slide 7: Final
-            {
-                content: `
-<div class="code-line"><span class="comment">// Compiling final birthday wish...</span></div>
-<div class="code-line"></div>
-<div class="code-block">
-<div class="code-line"><span class="keyword">function</span> <span class="function">celebrateAvni</span>() {</div>
-<div class="code-line">    <span class="keyword">const</span> <span class="variable">wishes</span> = {</div>
-<div class="code-line">        <span class="variable">joy</span>: <span class="string">"May your days be filled with endless happiness"</span>,</div>
-<div class="code-line">        <span class="variable">success</span>: <span class="string">"May all your dreams turn into reality"</span>,</div>
-<div class="code-line">        <span class="variable">love</span>: <span class="string">"May you always be surrounded by those who cherish you"</span>,</div>
-<div class="code-line">        <span class="variable">adventure</span>: <span class="string">"May this year bring incredible experiences"</span></div>
-<div class="code-line">    };</div>
-<div class="code-line">    </div>
-<div class="code-line">    <span class="keyword">return</span> <span class="variable">wishes</span>;</div>
-<div class="code-line">}</div>
-</div>
-<div class="code-line"></div>
-<div class="ascii-art neon glitch" style="font-size: 0.6rem;">
-  _   _    _    ____  ______   __  ____ ___ ____ _____ _   _ ____    _ __   __
- | | | |  / \\  |  _ \\|  _ \\ \\ / / | __ )_ _|  _ \\_   _| | | |  _ \\  / \\\\ \\ / /
- | |_| | / _ \\ | |_) | |_) \\ V /  |  _ \\| || |_) || | | |_| | | | |/ _ \\\\ V / 
- |  _  |/ ___ \\|  __/|  __/ | |   | |_) | ||  _ < | | |  _  | |_| / ___ \\| |  
- |_| |_/_/   \\_\\_|   |_|    |_|   |____/___|_| \\_\\|_| |_| |_|____/_/   \\_\\_|  
-</div>
-<div class="code-line"></div>
-<div class="code-line neon" style="font-size: 1.3rem; text-align: center;"><span class="string">"You're amazing, Avni! 🎂🎉✨"</span></div>
-<div class="code-line"></div>
-<div class="code-line"><span class="comment">// Program executed successfully ✓</span></div>
-<div class="code-line"><span class="comment">// Celebration status: ACTIVE 🎊</span></div>
-`
-            }
+        // Lightbox Gallery
+        const images = [
+            'https://picsum.photos/800/800?random=1',
+            'https://picsum.photos/800/800?random=2',
+            'https://picsum.photos/800/800?random=3',
+            'https://picsum.photos/800/800?random=4',
+            'https://picsum.photos/800/800?random=5',
+            'https://picsum.photos/800/800?random=6',
+            'https://picsum.photos/800/800?random=7',
+            'https://picsum.photos/800/800?random=8',
+            'https://picsum.photos/800/800?random=9',
+            'https://picsum.photos/800/800?random=10'
         ];
 
-        // Slide Management
-        let currentSlide = 0;
-        const totalSlides = slides.length;
+        let currentImageIndex = 0;
 
-        function renderSlide(index) {
-            const terminalBody = document.getElementById('terminalBody');
-            terminalBody.innerHTML = `<div class="slide active">${slides[index].content}</div>`;
-            
-            // Start countdown if on countdown slide
-            if (index === 5) {
-                updateCountdown();
-                setInterval(updateCountdown, 1000);
+        function openLightbox(index) {
+            currentImageIndex = index;
+            updateLightboxImage();
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox(event) {
+            if (event.target.id === 'lightbox' || event.target.classList.contains('lightbox-close')) {
+                document.getElementById('lightbox').classList.remove('active');
+                document.body.style.overflow = 'auto';
             }
         }
 
-        function nextSlide() {
-            if (currentSlide < totalSlides - 1) {
-                currentSlide++;
-                renderSlide(currentSlide);
-                updateProgressBar();
-                updateSlideCounter();
+        function changeImage(direction, event) {
+            event.stopPropagation();
+            currentImageIndex += direction;
+            
+            if (currentImageIndex < 0) {
+                currentImageIndex = images.length - 1;
+            } else if (currentImageIndex >= images.length) {
+                currentImageIndex = 0;
             }
-        }
-
-        function updateProgressBar() {
-            const progress = ((currentSlide + 1) / totalSlides) * 100;
-            document.getElementById('progressBar').style.width = progress + '%';
-        }
-
-        function updateSlideCounter() {
-            document.getElementById('slideCounter').innerText = `${currentSlide + 1} / ${totalSlides}`;
-        }
-
-        // Countdown Timer
-        function updateCountdown() {
-            const startDate = new Date('2024-01-01T00:00:00').getTime();
-            const now = new Date().getTime();
-            const distance = now - startDate;
             
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            const daysEl = document.getElementById('days');
-            const hoursEl = document.getElementById('hours');
-            const minutesEl = document.getElementById('minutes');
-            const secondsEl = document.getElementById('seconds');
-            
-            if (daysEl) daysEl.innerText = days;
-            if (hoursEl) hoursEl.innerText = hours;
-            if (minutesEl) minutesEl.innerText = minutes;
-            if (secondsEl) secondsEl.innerText = seconds;
+            updateLightboxImage();
         }
 
-        // Keyboard Navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === 'ArrowRight') {
-                nextSlide();
+        function updateLightboxImage() {
+            document.getElementById('lightboxImg').src = images[currentImageIndex];
+            document.getElementById('lightboxCounter').textContent = `${currentImageIndex + 1} / ${images.length}`;
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox.classList.contains('active')) {
+                if (e.key === 'ArrowLeft') {
+                    changeImage(-1, e);
+                } else if (e.key === 'ArrowRight') {
+                    changeImage(1, e);
+                } else if (e.key === 'Escape') {
+                    closeLightbox({target: lightbox});
+                }
             }
-        });
-
-        // Initialize
-        renderSlide(0);
-        updateProgressBar();
-        updateSlideCounter();
-
-        // Window resize handler for matrix
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
         });
     </script>
 </body>
