@@ -109,6 +109,7 @@
             aspect-ratio: 1;
             box-shadow: 0 8px 16px rgba(0,0,0,0.3);
             transition: transform 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .gallery-item:hover {
@@ -120,10 +121,27 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s ease;
+            display: block;
         }
 
         .gallery-item:hover img {
             transform: scale(1.1);
+        }
+
+        /* Loading state */
+        .gallery-item::before {
+            content: '📷';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3em;
+            opacity: 0.3;
+        }
+
+        .gallery-item img[src] {
+            position: relative;
+            z-index: 1;
         }
 
         /* Lightbox Styles */
@@ -173,6 +191,7 @@
             align-items: center;
             justify-content: center;
             transition: background 0.3s;
+            z-index: 1001;
         }
 
         .lightbox-close:hover {
@@ -195,6 +214,7 @@
             justify-content: center;
             transition: background 0.3s;
             user-select: none;
+            z-index: 1001;
         }
 
         .lightbox-nav:hover {
@@ -219,6 +239,7 @@
             background: rgba(0,0,0,0.5);
             padding: 10px 20px;
             border-radius: 20px;
+            z-index: 1001;
         }
 
         /* Animations */
@@ -313,36 +334,37 @@
         <!-- Photo Gallery -->
         <section class="gallery-section">
             <h2 class="gallery-title">📸 Memory Gallery 📸</h2>
+            <p style="text-align: center; margin-bottom: 20px; opacity: 0.9;">Click on any photo to view it larger</p>
             <div class="gallery-grid">
                 <div class="gallery-item" onclick="openLightbox(0)">
-                    <img src="https://images.unsplash.com/photo-1464207687429-7505649dae38?w=600&h=600&fit=crop" alt="Beautiful Sunset">
+                    <img src="https://picsum.photos/id/1015/600/600" alt="Beautiful Nature 1" loading="lazy">
                 </div>
                 <div class="gallery-item" onclick="openLightbox(1)">
-                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=600&fit=crop" alt="Mountain Landscape">
+                    <img src="https://picsum.photos/id/1018/600/600" alt="Beautiful Nature 2" loading="lazy">
                 </div>
                 <div class="gallery-item" onclick="openLightbox(2)">
-                    <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&h=600&fit=crop" alt="Nature Path">
+                    <img src="https://picsum.photos/id/1019/600/600" alt="Beautiful Nature 3" loading="lazy">
                 </div>
                 <div class="gallery-item" onclick="openLightbox(3)">
-                    <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600&h=600&fit=crop" alt="Foggy Forest">
+                    <img src="https://picsum.photos/id/1025/600/600" alt="Beautiful Nature 4" loading="lazy">
                 </div>
                 <div class="gallery-item" onclick="openLightbox(4)">
-                    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&h=600&fit=crop" alt="Flower Field">
+                    <img src="https://picsum.photos/id/1035/600/600" alt="Beautiful Nature 5" loading="lazy">
                 </div>
                 <div class="gallery-item" onclick="openLightbox(5)">
-                    <img src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=600&h=600&fit=crop" alt="Mountain Peak">
+                    <img src="https://picsum.photos/id/1036/600/600" alt="Beautiful Nature 6" loading="lazy">
                 </div>
                 <div class="gallery-item" onclick="openLightbox(6)">
-                    <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=600&h=600&fit=crop" alt="Ocean Waves">
+                    <img src="https://picsum.photos/id/1040/600/600" alt="Beautiful Nature 7" loading="lazy">
                 </div>
                 <div class="gallery-item" onclick="openLightbox(7)">
-                    <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=600&h=600&fit=crop" alt="Tropical Beach">
+                    <img src="https://picsum.photos/id/1043/600/600" alt="Beautiful Nature 8" loading="lazy">
                 </div>
                 <div class="gallery-item" onclick="openLightbox(8)">
-                    <img src="https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=600&h=600&fit=crop" alt="Starry Night">
+                    <img src="https://picsum.photos/id/1044/600/600" alt="Beautiful Nature 9" loading="lazy">
                 </div>
                 <div class="gallery-item" onclick="openLightbox(9)">
-                    <img src="https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=600&h=600&fit=crop" alt="Cherry Blossoms">
+                    <img src="https://picsum.photos/id/1047/600/600" alt="Beautiful Nature 10" loading="lazy">
                 </div>
             </div>
         </section>
@@ -378,16 +400,16 @@
 
         // Lightbox Gallery
         const images = [
-            'https://images.unsplash.com/photo-1464207687429-7505649dae38?w=1200&h=1200&fit=crop',
-            'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=1200&fit=crop',
-            'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&h=1200&fit=crop',
-            'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1200&h=1200&fit=crop',
-            'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&h=1200&fit=crop',
-            'https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=1200&h=1200&fit=crop',
-            'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=1200&h=1200&fit=crop',
-            'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=1200&h=1200&fit=crop',
-            'https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=1200&h=1200&fit=crop',
-            'https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=1200&h=1200&fit=crop'
+            'https://picsum.photos/id/1015/1200/1200',
+            'https://picsum.photos/id/1018/1200/1200',
+            'https://picsum.photos/id/1019/1200/1200',
+            'https://picsum.photos/id/1025/1200/1200',
+            'https://picsum.photos/id/1035/1200/1200',
+            'https://picsum.photos/id/1036/1200/1200',
+            'https://picsum.photos/id/1040/1200/1200',
+            'https://picsum.photos/id/1043/1200/1200',
+            'https://picsum.photos/id/1044/1200/1200',
+            'https://picsum.photos/id/1047/1200/1200'
         ];
 
         let currentImageIndex = 0;
@@ -436,6 +458,14 @@
                     closeLightbox({target: lightbox});
                 }
             }
+        });
+
+        // Preload images
+        window.addEventListener('load', function() {
+            images.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
         });
     </script>
 </body>
